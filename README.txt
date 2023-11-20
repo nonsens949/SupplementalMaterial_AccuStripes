@@ -1,12 +1,12 @@
 This folder contains the supplemental material for the paper AccuStripes: Exploring the Use of Color and Binning in Univariate Data Distributions: 
 
 =====================================
-Details_AccuStripes.pdf
+EvaluationDetails_AccuStripes.pdf
 
 This powerpoint contains additional evaluation results and charts illustrating all effects and further analyses for the AccuStripes study.
 
 =====================================
-Details_Validation.pdf
+EvaluationDetails_Validation.pdf
 
 This powerpoint contains additional evaluation results and charts illustrating all effects and further analyses for the validation study.
 
