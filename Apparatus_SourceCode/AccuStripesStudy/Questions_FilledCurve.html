@@ -1,0 +1,1367 @@
+<!-- This html contains all questions asked for the Filled Curve composition. -->
+<!-- The study logic is not contained here. It is contained in Logic.html. -->
+
+ <!DOCTYPE html> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div id='Composition_FilledCurve' class='container questionsContainer'>
+<div class='main'>
+<div id='form-panel' class='form-panel paper-shadow-top-z-3'>
+<form id='myForm' name='myForm' method='POST' action=''>
+
+<!-- -------------------------------------------------------- -->
+<!-- Section 0 -->
+<div id='page0' class='pages'>
+<h1>Evaluation - AccuStripes</h1>
+<div class='item'>
+  <div>
+    <p class="help-block">This study is concerned with investigating different visual encodings for the representation of distributions. We encounter distributions all the time in everyday life, in the news, in weather forecasts, etc. Generally, a distribution is a collection of data points, each of which has a certain value. Distributions are often visualized as density plots in which the shape of the distribution is shown in detail.<br>
+    </p> 
+    <div>
+      <img src="https://drive.google.com/uc?export=view&id=1hhGCeOXLn2qsM74_Gjcc_AMxTAX6a0By" class="imageIntro">
+    </div>
+    <p class="help-block">Situations may arise where an observer wants to identify and compare multiple distributions simultaneously. To support these two tasks equally, we investigate different visual encodings for distributions in this study. We refer to the collection of visualization compositions as AccuStripes.<br>
+    </p>
+  </div>
+<div>
+  <h2>AccuStripes</h2>
+  <p class="help-block">AccuStripes display a distribution in the form of a curve, and the area under the curve is colored using a binning technique. AccuStripes are determined by three different binning techniques: Uniform Binning, Bayesian Blocks Binning, and Jenks' Natural Breaks Binning. </p>
+  <div class='item item_background'>
+    <p> <b> Binning Techniques: </b> </p>
+    <p class="help-block"> The binning techniques provide an abstraction of the distribution by <b>dividing it into individual rectangles, i.e., bins</b>. The bins are colored according to the number of points that lie inside the bin. <b>The more points are located in the bin, the brighter</b> or more yellowish is its color, <b>the fewer points are located in it, the darker </b> or more violet is its color. Therefore, AccuStripes can adopt three different representation for a single distribution, depending on the binning technique applied.<br> 
+    </p>
+  </div>
+  <p class="help-block"> In the following image you can inspect the three different AccuStripes representations for the same distribution.</p>
+  <div>
+    <img src="https://drive.google.com/uc?export=view&id=113AByEGXCM0xXCQM9WB1zjLWhjxF38Qy" class="imageIntro">
+  </div>
+  <div class='item item_background'>
+    <p><b>Uniform Binning: <br> </b> </p>
+    <p class="help-block"> The distribution is divided into bins of <b>equal width</b>. The bins are colored according to the number of points inside, called frequency.<br></p>
+    <p class="help-block"> Uniform Binning follows the strategy to <b>divide the distribution into a fixed number of bins</b>. We use the Sturge's Rule to compute the number of bins.<br></p>
+  </div>
+  <div class='item item_background'>
+    <p><b>Adaptive Binning:  <br></b> </p>
+    <p class="help-block"> The distribution is divided into bins of <b>varying width</b>. The bins are colored according to the number of points inside divided by the width of the bins, called frequency density.<br> Bayesian Blocks and Jenks' Natural Breaks Binning are both adaptive binning techniques.</p>
+    <p><b>Bayesian Blocks Binning:</b> This method groups sections of the curve into bins that have minimal or no changes in height.<br></p>
+    <p><b>Jenks' Natural Breaks Binning:</b> This method groups the data into bins by recognizing "natural" breaks (i.e., divisions) in the distribution.<br></p>
+   </div>
+</div>
+
+<!------------ Explanation Evaluation Procedure ------------>
+<div class="span">
+  <h2>Evaluation Procedure</h2>
+  <p  class="help-block"> If you decide to participate in this research, you will be asked to answer questions about fictional data.</p> 
+  <p  class="help-block"> In total you will answer 15 main questions and for each of those one supplemental question. <br> Each question has to be answered in order to move on to the next one. You cannot change your answer for a particular question after you have pressed the button "Continue".</p>
+  <p> We expect this study to take about 10-15 minutes. <br> </p>
+  <p class="help-block"> This study consists of 3 parts: the Identification Challenge, the Comparison Challenge, and the Flaw Detection Challenge. For each challenge you will first get a short introduction with a description what you will have to do and an example question. Then you will have to answer some questions. The time it takes you to answer the main question is measured. Please, do not feel stressed! Be as accurate as possible. After answering the main question, there will be time to rest.</p>
+  <p class="help-block"> Anytime inbetween the study we included some trivial questions or attention tasks to filter out people who just randomly click through the study. Be aware of them. <b>If you answer them incorrectly, your answers will be removed from the study and no payment will be made. </b></p>
+</div>
+
+<!------------ Explanation Supplementary Question Challenge ------------>
+<div class="span">
+  <h3> Supplementary Question</h3>
+  <p> After each main question, you will have to state how confident you are with your answer. Hereby you can choose from "very unconfident" to "very confident". For example if you do not know the correct answer for the   main question, tick your best guess and check "very unconfident" at this supplementary question.
+  </p>
+</div>
+
+<div class='item item_background'>
+<p>How confident are you about your answer? (example)</p>
+   <div id='exampleQuestion1' name='exampleQuestion1' class="radio-group">
+        <div>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a1_e1" name="e1" class="displayTooltip" value="0" required>
+              Very Unconfident
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a2_e1" name="e1" class="displayTooltip" value="1" required>
+              Unconfident
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a3_e1" name="e1" class="displayTooltip" value="2" required>
+              Confident
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a4_e1" name="e1" class="displayTooltip" value="3" required>
+              Very Confident
+          </label>
+        </div>
+    </div>
+</div>
+<div id="ex1_a" class="displayAnswer"></div>
+
+<!------------ Demographic Information ------------>
+<div class="span">
+  <h2> Demographic Information</h2>
+  <p> In the following we kindly ask you to give us a little information about your person. All data will be treated absolutely anonymously. An assignment of your answers to your person is not possible and also not intended. The evaluation will only be carried out according to scientific criteria.
+  </p>
+</div>
+
+<div class='item item_background'>
+<p>What is your gender?</p>
+   <div id='demographicQuestion1' name='demographicQuestion1' class="radio-group">
+        <div>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a1_d1" name="d1" value="Male" required>
+              Male
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a2_d1" name="d1" value="Female" required>
+              Female
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a3_d1" name="d1" value="Diverse" required>
+              Diverse
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a4_d1" name="d1" value="Decline to state" required>
+              Decline to state
+          </label>
+        </div>
+    </div>
+</div>
+
+<div class='item item_background'>
+<p>How old are you? (years)</p>
+   <div id='demographicQuestion2' name='demographicQuestion2' class="radio-group">
+        <div>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a1_d2" name="d2" value="0" required>
+              < 20
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a2_d2" name="d2" value="1" required>
+              20 - 29
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a3_d2" name="d2" value="2" required>
+              30 - 39
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a4_d2" name="d2" value="3" required>
+              40 - 49
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a5_d2" name="d2" value="4" required>
+              > 50
+          </label>
+        </div>
+    </div>
+</div>
+
+<div class='item item_background'>
+<p>What is your highest level of education? </p>
+   <div id='demographicQuestion3' name='demographicQuestion3' class="radio-group">
+        <div>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a1_d3" name="d3" value="Some high school" required>
+              Some high school
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a2_d3" name="d3" value="High school degree" required>
+              High school degree
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a3_d3" name="d3" value="Some college" required>
+              Some college
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a3_d3" name="d3" value="College degree" required>
+              College degree
+          </label>
+          <label class="radio-inline">
+              <input type="radio" title= "" id="a3_d3" name="d3" value="Graduate degree" required>
+              Graduate degree
+          </label>
+        </div>
+    </div>
+</div>
+
+<div class='item item_background'>
+<p>Do you have experience with charts and graphs? </p>
+   <div id='demographicQuestion4' name='demographicQuestion4' class="radio-group">
+        <div>
+          <input type="radio" title= "" id="a0_d4" name="d4" value="most unfamiliar" required>
+          <label for="a0_d4">most unfamiliar (never worked with them before)</label><br>
+          <input type="radio" title= "" id="a1_d4" name="d4" value="unfamiliar" required>
+          <label for="a1_d4">unfamiliar (once or twice)</label><br>
+          <input type="radio" title= "" id="a2_d4" name="d4" value="neutral" required>
+          <label for="a2_d4">neutral (have some experience)</label><br>
+          <input type="radio" title= "" id="a3_d4" name="d4" value="familiar" required>
+          <label for="a3_d4">familiar (working regularly with them)</label><br> 
+          <input type="radio" title= "" id="a4_d4" name="d4" value="most familiar" required>
+          <label for="a4_d4">most familiar (working with them daily)</label><br>
+        </div>
+    </div>
+</div>
+
+<div class='item item_background'>
+<p>When you are creating charts, do you experiment with its parameters? (i.e. changing the number of bins drawn in an histogram, changing the curvature in a density chart, etc.) </p>
+   <div id='demographicQuestion5' name='demographicQuestion5' class="radio-group">
+        <div>
+          <input type="radio" title= "" id="a0_d5" name="d5" value="most unfamiliar" required>
+          <label for="a0_d5">most unfamiliar (never changed them before)</label><br>
+          <input type="radio" title= "" id="a1_d5" name="d5" value="unfamiliar" required>
+          <label for="a1_d5">unfamiliar (once or twice)</label><br>
+          <input type="radio" title= "" id="a2_d5" name="d5" value="neutral" required>
+          <label for="a2_d5">neutral (have some experience)</label><br>
+          <input type="radio" title= "" id="a3_d5" name="d5" value="familiar" required>
+          <label for="a3_d5">familiar (working regularly with them)</label><br> 
+          <input type="radio" title= "" id="a4_d5" name="d5" value="most familiar" required>
+          <label for="a4_d5">most familiar (working with them daily)</label><br>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+<!-- -------------------------------------------------------- -->
+<!-- Identification Introduction -->
+<div id='page1' class='pages hidden'>
+  <!------------ Explanation Identification Challenge ------------>
+  <div class="span">
+    <h2> Identification Challenge - Explanation</h2>
+    <p> In this challenge your task is to select the density plot (1,2,3), that is shown in the AccuStripe.
+    </p>
+    <p> In the following you will see a sample question. You can choose from three answer possibilities. One answer is correct.
+    </p>
+  </div>
+
+  <!-- Example Question Identification Challenge -->
+  <div class='item item_background'>
+    <p>Select the density plot that displays the distribution in the AccuStripe: (example)</p>
+    <img src="https://drive.google.com/uc?export=view&id=1slbMexzSKeInWV9ATs765v0zV0ssvyVw" class="imageQuestions">
+      <div id='exampleQuestion2' name='exampleQuestion2' class="form-group">
+        <input type="radio" title= "" id="a1_e1" name="e2" class="displayTooltip" value="0" required>
+        <label for="a1_e2">1</label><br>
+        <input type="radio" title= "" id="a2_e2" name="e2" class="displayTooltip" value="0" required>
+        <label for="a2_e2">2</label><br>
+        <input type="radio" title= "" id="a3_e2" name="e2" class="displayTooltip" value="1" required>
+        <label for="a3_e2">3</label>
+      </div>
+  </div>
+<div id="ex2_a" class="displayAnswer"></div>
+
+</div>
+
+<!-- Identification Questions -->
+<div id="typeIdentification" class="typeIdentification">
+  <!-- -------------------------------------------------------- -->
+  <!-- Identification Q1 -->
+  <div id='page2' class='pages hidden shuffle '>
+
+    <!-- Question 1 -->
+    <div class='item item_background'>
+    <p>Select the density plot that displays the distribution in the AccuStripe: </p>
+    <img src="https://drive.google.com/uc?export=view&id=1fj8YzdEqtXffe2k-ClrSwCnMtrYpNwdt" class="imageQuestions">
+      <div id='question1' name='question1' class="form-group">
+        <input type="radio" title= "" id="a1_q1" name="q1" value="0.00" required> <!-- CORRECT -->
+        <label for="a1_q1">1</label><br>
+        <input type="radio" title= "" id="a2_q1" name="q1" value="0.0704799654115444" required>
+        <label for="a2_q1">2</label><br>
+        <input type="radio" title= "" id="a3_q1" name="q1" value="0.13025029571234994" required>
+        <label for="a3_q1">3</label><br>
+      </div>
+    </div>
+
+    <div class="hidden time">
+    <input id="time1" name="time1" type="text" />
+    <input id="time1-start" name="time1-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Identification Q2-->
+  <div id='page3' class='pages hidden shuffle'>
+    <!-- Question 2 -->
+    <div class='item item_background'>
+      <p>Select the density plot that displays the distribution in the AccuStripe: </p>
+      <img src="https://drive.google.com/uc?export=view&id=18sMCm6E1YowPHLZ8ixy0eXclClCdBTry" class="imageQuestions">
+        <div id='question2' name='question2' class="form-group">
+          <input type="radio" title= "" id="a1_q2" name="q2" value="0.3677005952272578" required> 
+          <label for="a1_q2">1</label><br>
+          <input type="radio" title= "" id="a2_q2" name="q2" value="0.23629274732697134" required> 
+          <label for="a2_q2">2</label><br>
+          <input type="radio" title= "" id="a3_q2" name="q2" value="0.00" required> <!-- CORRECT -->
+          <label for="a3_q2">3</label><br>
+        </div>
+    </div>
+
+    <div class="hidden time">
+    <input id="time2" name="time2" type="text" />
+    <input id="time2-start" name="time2-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Identification Q3-->
+  <div id='page4' class='pages hidden shuffle'>
+
+    <!-- Question 3 -->
+    <div class='item item_background'>
+      <p>Select the density plot that displays the distribution in the AccuStripe: </p>
+      <img src="https://drive.google.com/uc?export=view&id=1JWLCt6Qjak1IMV0W_qDRvyxOqWikP04-" class="imageQuestions">
+        <div id='question3' name='question3' class="form-group">
+          <input type="radio" title= "" id="a1_q3" name="q3" value="0.10122104467271427" required>
+          <label for="a1_q3">1</label><br>
+          <input type="radio" title= "" id="a2_q3" name="q3" value="0.00" required> <!-- CORRECT -->
+          <label for="a2_q3">2</label><br>
+          <input type="radio" title= "" id="a3_q3" name="q3" value="0.13284256706778716" required> 
+          <label for="a3_q3">3</label><br>
+        </div>
+    </div>
+
+    <div class="hidden time">
+      <input id="time3" name="time3" type="text" />
+      <input id="time3-start" name="time3-start" type="text" />
+    </div>
+  </div>
+
+</div>
+
+<!-- -------------------------------------------------------- -->
+<!-- Comparison Introduction-->
+<div id='page5' class='pages hidden'>
+
+  <!------------ Explanation Comparison Challenge ------------>
+ <div class="span">
+    <h2> Comparison Challenge - Explanation</h2>
+    <p> In this second part of the study your task will be to compare various distributions (1 - 5) with one ground truth distribution. Select one distribution (1 - 5), which you think is most similar to the ground truth distribution (GT).
+    </p>
+    <p> The most similar distribution to ground truth is the distribution that can be transformed into ground truth by the least amount of effort.
+    </p>
+    <p> In the following you will see a sample question. You can choose from five answer possibilities. One answer is correct.
+    </p>
+  </div>
+  <!-- Example Question Comparison Challenge -->
+  <div class='item item_background'>
+  <p>Choose the distribution, which is the most similar one to the groundTruth (GT). (example)</p>
+  <img src="https://drive.google.com/uc?export=view&id=1ESt9qG0Fad3ni3yOodC2IlcYXZZUB6nY" class="imageQuestions">
+    <div id='exampleQuestion3' name='exampleQuestion3' class="form-group">
+      <input type="radio" title= "" id="a1_e3" name="e3" class="displayTooltip" value="0.06566062602009975" required>
+      <label for="a1_e3">1</label><br>
+      <input type="radio" title= "" id="a2_e3" name="e3" class="displayTooltip" value="0.11639443141535959" required>
+      <label for="a2_e3">2</label><br>
+      <input type="radio" title= "" id="a3_e3" name="e3" class="displayTooltip" value="0.07581361418819905" required> 
+      <label for="a3_e3">3</label><br>
+      <input type="radio" title= "" id="a4_e3" name="e3" class="displayTooltip" value="0.19933493827941454" required>
+      <label for="a4_e3">4</label><br>
+      <input type="radio" title= "" id="a5_e3" name="e3" class="displayTooltip" value="0.03787905677337114" required> <!-- CORRECT -->
+      <label for="a5_e3">5</label>
+    </div>
+  </div>
+<div id="ex3_a" class="displayAnswer"></div>
+</div>
+
+<!-- Comparison Questions -->
+<div id="typeComparison" class="typeComparison">
+  <!-- -------------------------------------------------------- -->
+  <!-- Comparison Q4 -->
+  <div id='page6' class='pages hidden shuffle '>
+
+    <!-- Question 4 -->
+    <div class='item item_background'>
+    <p>Choose the distribution, which is the most similar one to the groundTruth (GT):</p>
+    <img src="https://drive.google.com/uc?export=view&id=17uuOXWR5AM8Rni7oaj4_UwT5JNP7Z9lq" class="imageQuestions">
+      <div id='question4' name='question4' class="form-group">
+        <input type="radio" title= "" id="a1_q4" name="q4" value="0.10127006913667054" required>
+        <label for="a1_q4">1</label><br>
+        <input type="radio" title= "" id="a2_q4" name="q4" value="0.2552773107219573" required>
+        <label for="a2_q4">2</label><br>
+        <input type="radio" title= "" id="a3_q4" name="q4" value="0.09436657478005092" required> <!-- CORRECT -->
+        <label for="a3_q4">3</label><br>
+        <input type="radio" title= "" id="a4_q4" name="q4" value="0.16297428878975295" required>
+        <label for="a4_q4">4</label><br>
+        <input type="radio" title= "" id="a5_q4" name="q4" value="0.10845569329699689" required>
+        <label for="a5_q4">5</label><br>
+      </div>
+    </div>
+
+    <div class="hidden time">
+    <input id="time4" name="time4" type="text" />
+    <input id="time4-start" name="time4-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Comparison Q5 -->
+  <div id='page7' class='pages hidden shuffle '>
+
+    <!-- Question 5 -->
+    <div class='item item_background'>
+    <p>Choose the distribution, which is the most similar one to the groundTruth (GT):</p>
+    <img src="https://drive.google.com/uc?export=view&id=19xRqRYy4BMJOTJ2ga9gbYF1tQAeO48BE" class="imageQuestions">
+      <div id='question5' name='question5' class="form-group">
+        <input type="radio" title= "" id="a1_q5" name="q5" value="0.05449519509006098" required>
+        <label for="a1_q5">1</label><br>
+        <input type="radio" title= "" id="a2_q5" name="q5" value="0.1304143729978284" required>
+        <label for="a2_q5">2</label><br>
+        <input type="radio" title= "" id="a3_q5" name="q5" value="0.03884067699504515" required> <!-- CORRECT -->
+        <label for="a3_q5">3</label><br>
+        <input type="radio" title= "" id="a4_q5" name="q5" value="0.28092100091927935" required>
+        <label for="a4_q5">4</label><br>
+        <input type="radio" title= "" id="a5_q5" name="q5" value="0.5149524766164876" required>
+        <label for="a5_q5">5</label><br>
+      </div>
+    </div>
+
+    <div class="hidden time">
+    <input id="time5" name="time5" type="text" />
+    <input id="time5-start" name="time5-start" type="text" />
+    </div>
+
+  </div>
+
+    <!-- -------------------------------------------------------- -->
+  <!-- Comparison Q6 -->
+  <div id='page8' class='pages hidden shuffle '>
+
+    <!-- Question 6 -->
+    <div class='item item_background'>
+    <p>Choose the distribution, which is the most similar one to the groundTruth (GT):</p>
+    <img src="https://drive.google.com/uc?export=view&id=1TSudwMTescJk5XaiHlTsqej1akrt_tBY" class="imageQuestions">
+      <div id='question6' name='question6' class="form-group">
+        <input type="radio" title= "" id="a1_q6" name="q6" value="0.06295033140090991" required> <!-- CORRECT -->
+        <label for="a1_q6">1</label><br>
+        <input type="radio" title= "" id="a2_q6" name="q6" value="0.4209401595543083" required>
+        <label for="a2_q6">2</label><br>
+        <input type="radio" title= "" id="a3_q6" name="q6" value="0.17645731206288578" required>
+        <label for="a3_q6">3</label><br>
+        <input type="radio" title= "" id="a4_q6" name="q6" value="0.3226032574395024" required> 
+        <label for="a4_q6">4</label><br>
+        <input type="radio" title= "" id="a5_q6" name="q6" value="0.488458348742024" required>
+        <label for="a5_q6">5</label><br>
+      </div>
+    </div>
+
+    <div class="hidden time">
+    <input id="time6" name="time6" type="text" />
+    <input id="time6-start" name="time6-start" type="text" />
+    </div>
+
+  </div>
+
+</div>  
+
+<!-- -------------------------------------------------------- -->
+<!-- Flaw Detection Introduction-->
+<div id='page9' class='pages hidden'>
+
+  <!------------ Explanation Flaw Detection Challenge ------------>
+  <div class="span">
+    <h2> Flaw Detection Challenge</h2>
+    <p> In this part you will look for flaws in data charts. You will be shown a table of charts, each containing sample data. Most of the charts are random data, but one of them will have a flaw. Your task is to select the chart that has the flaw. In some cases, this flaw is hard to spot. In these cases, make your best guess. There can be three different types of flaws: Gaps, Spikes, and Outlier.
+    </p>
+    <p> <b>Data without flaws: </b> The distributions were generated by randomly sampling. Even data without flaws can look different from other data, just due to random chance.<br> </p>
+    <p> <b>Gaps: </b> For data with gaps, all of the data points in a particular region will be removed.</p>
+    <p> <b>Spikes: </b> For data with spikes, there will be a lot of data points with the exact same value.</p>
+    <p> <b>Outliers: </b>For data with outliers, there will be a large number of data points that are much lower, or much higher, than most of the rest of the data points.</p>
+    <p>In the following image you will see how <b>gaps</b> will be represented. There are 4 distributions, the first distribution does not contain a gap, the following 3 distributions do have a gap of increasing severity at the same region. In [1] the 4 distributions are shown in a density plot. In [2] the distributions are binned by Uniform Binning, in [3] they are binned by Jenks' Natural Breaks and in [4] by Bayesian Blocks. The red lines indicate where the gaps are located in the distributions and how the different binning techniques represent the gaps.</p>
+    <img src="https://drive.google.com/uc?export=view&id=1yV3GS4dY2v3a5IGZjA-ljoEIL2juBsWE" class="imageQuestions">
+
+    <p class="help-block">In the next image you will you will see how <b>outliers</b> will be represented. Again, there are 4 distributions, the first one does not contain a data flaw, the following 3 distributions do have an outlier at the right side of the distribution of increasing severity. Again, [1] shows the 4 distributions in a density plot, [2] binned through Uniform Binning, [3] in Jenks' Natural Breaks and [4] in Bayesian Blocks. The red lines indicate where the outlier is located in the distributions.</p>
+    <img src="https://drive.google.com/uc?export=view&id=1tYuB9q-159rWRJKvQK6jaM4nTEydvaGu" class="imageQuestions">
+
+    <p class="help-block">In the following image you will see how <b>spikes</b> will be represented. Again, the first distribution does not contain a spike, the following 3 distributions have a spike of increasing severity, slightly left of the center. [1] shows the 4 distributions in a density plot, [2] binned through Uniform Binning, [3] in Jenks' Natural Breaks and [4] in Bayesian Blocks. The red lines indicate where the spikes are located and how the spikes are represented via the different binnings.</p>
+    <img src="https://drive.google.com/uc?export=view&id=1HfyaIh-Kpg0K2aoCdKPN886b6VolByL-" class="imageQuestions">
+ 
+    <p> In this challenge your task is to select the one distribution out of 20 distributions, which has a data flaw. You will see one of the three types of flaws in each question. You will be told what kind of flaw to look for. </p>
+    <p> In the following you will see three sample questions, one for each data flaw type.
+    </p>
+  </div>
+  <!-- Example Question Flaw Detection Challenge GAP -->
+  <div class='item item_background'>
+    <p>Choose the distribution, which has a <b>GAP</b> in it. (example)</p>
+    <img src="https://drive.google.com/uc?export=view&id=1VZUOUjrTVuCBOPl5iqit8Cz4Gwi2XcA4" class="imageQuestions">
+    <div id='exampleQuestion4' name='exampleQuestion4' class="form-group wrap">
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a1_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a1_e4">1</label><br>
+        <input type="radio" title= "" id="a2_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a2_e4">2</label><br>
+        <input type="radio" title= "" id="a3_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a3_e4">3</label><br>
+        <input type="radio" title= "" id="a4_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a4_e4">4</label><br>
+        <input type="radio" title= "" id="a5_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a5_e4">5</label>
+      </div>
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a6_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a6_e4">6</label><br>
+        <input type="radio" title= "" id="a7_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a7_e4">7</label><br>
+        <input type="radio" title= "" id="a8_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a8_e4">8</label><br>
+        <input type="radio" title= "" id="a9_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a9_e4">9</label><br>
+        <input type="radio" title= "" id="a10_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a10_e4">10</label>
+      </div>
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a11_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a11_e4">11</label><br>
+        <input type="radio" title= "" id="a12_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a12_e4">12</label><br>
+        <input type="radio" title= "" id="a13_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a13_e4">13</label><br>
+        <input type="radio" title= "" id="a14_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a14_e4">14</label><br>
+        <input type="radio" title= "" id="a15_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a15_e4">15</label>
+      </div>
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a16_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a16_e4">16</label><br>
+        <input type="radio" title= "" id="a17_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a17_e4">17</label><br>
+        <input type="radio" title= "" id="a18_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a18_e4">18</label><br>
+        <input type="radio" title= "" id="a19_e4" name="e4" class="displayTooltip" value="0" required>
+        <label for="a19_e4">19</label><br>
+        <input type="radio" title= "" id="a20_e4" name="e4" class="displayTooltip" value="1" required> <!-- CORRECT -->
+        <label for="a20_e4">20</label>
+      </div>
+    </div>  
+  </div>
+<div id="ex4_a" class="displayAnswer"></div>
+
+<!-- Example Question Flaw Detection Challenge OUTLIER -->
+  <div class='item item_background'>
+    <p>Choose the distribution, which has a <b>OUTLIER</b> in it. (example)</p>
+    <img src="https://drive.google.com/uc?export=view&id=1sJh5mQvAxEoBPOXryWitqMvF4k33-NiZ" class="imageQuestions">
+    <div id='exampleQuestion5' name='exampleQuestion5' class="form-group wrap">
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a1_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a1_e5">1</label><br>
+        <input type="radio" title= "" id="a2_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a2_e5">2</label><br>
+        <input type="radio" title= "" id="a3_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a3_e5">3</label><br>
+        <input type="radio" title= "" id="a4_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a4_e5">4</label><br>
+        <input type="radio" title= "" id="a5_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a5_e5">5</label>
+      </div>
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a6_e5" name="e5" class="displayTooltip" value="1" required> <!-- CORRECT -->
+        <label for="a6_e5">6</label><br>
+        <input type="radio" title= "" id="a7_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a7_e5">7</label><br>
+        <input type="radio" title= "" id="a8_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a8_e5">8</label><br>
+        <input type="radio" title= "" id="a9_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a9_e5">9</label><br>
+        <input type="radio" title= "" id="a10_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a10_e5">10</label>
+      </div>
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a11_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a11_e5">11</label><br>
+        <input type="radio" title= "" id="a12_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a12_e5">12</label><br>
+        <input type="radio" title= "" id="a13_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a13_e5">13</label><br>
+        <input type="radio" title= "" id="a14_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a14_e5">14</label><br>
+        <input type="radio" title= "" id="a15_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a15_e5">15</label>
+      </div>
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a16_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a16_e5">16</label><br>
+        <input type="radio" title= "" id="a17_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a17_e5">17</label><br>
+        <input type="radio" title= "" id="a18_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a18_e5">18</label><br>
+        <input type="radio" title= "" id="a19_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a19_e5">19</label><br>
+        <input type="radio" title= "" id="a20_e5" name="e5" class="displayTooltip" value="0" required>
+        <label for="a20_e5">20</label>
+      </div>
+    </div>  
+  </div>
+<div id="ex5_a" class="displayAnswer"></div>
+
+<!-- Example Question Flaw Detection Challenge SPIKE -->
+  <div class='item item_background'>
+    <p>Choose the distribution, which has a <b>SPIKE</b> in it. (example)</p>
+    <img src="https://drive.google.com/uc?export=view&id=1Gc69-0zlXlesAEuW66CA-zGeMYZyM226" class="imageQuestions">
+    <div id='exampleQuestion6' name='exampleQuestion6' class="form-group wrap">
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a1_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a1_e6">1</label><br>
+        <input type="radio" title= "" id="a2_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a2_e6">2</label><br>
+        <input type="radio" title= "" id="a3_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a3_e6">3</label><br>
+        <input type="radio" title= "" id="a4_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a4_e6">4</label><br>
+        <input type="radio" title= "" id="a5_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a5_e6">5</label>
+      </div>
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a6_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a6_e6">6</label><br>
+        <input type="radio" title= "" id="a7_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a7_e6">7</label><br>
+        <input type="radio" title= "" id="a8_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a8_e6">8</label><br>
+        <input type="radio" title= "" id="a9_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a9_e6">9</label><br>
+        <input type="radio" title= "" id="a10_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a10_e6">10</label>
+      </div>
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a11_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a11_e6">11</label><br>
+        <input type="radio" title= "" id="a12_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a12_e6">12</label><br>
+        <input type="radio" title= "" id="a13_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a13_e6">13</label><br>
+        <input type="radio" title= "" id="a14_e6" name="e6" class="displayTooltip" value="1" required> <!-- CORRECT -->
+        <label for="a14_e6">14</label><br>
+        <input type="radio" title= "" id="a15_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a15_e6">15</label>
+      </div>
+      <div class="flawDetection">
+        <input type="radio" title= "" id="a16_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a16_e6">16</label><br>
+        <input type="radio" title= "" id="a17_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a17_e6">17</label><br>
+        <input type="radio" title= "" id="a18_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a18_e6">18</label><br>
+        <input type="radio" title= "" id="a19_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a19_e6">19</label><br>
+        <input type="radio" title= "" id="a20_e6" name="e6" class="displayTooltip" value="0" required>
+        <label for="a20_e6">20</label>
+      </div>
+    </div>  
+  </div>
+<div id="ex6_a" class="displayAnswer"></div>
+
+</div>
+
+<!-- Flaw Detection Questions -->
+<div id="typeFlawDetection" class="typeFlawDetection">
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Flaw Detection Q7 -->
+  <div id='page10' class='pages hidden shuffle '>
+
+    <!-- Question 7 - GAP - BB -->
+    <div class='item item_background'>
+      <p>Choose the distribution, which has a <b>GAP</b> in it.</p>
+      <img src="https://drive.google.com/uc?export=view&id=1d_8wd3rT5j_09v6FD56bXZ5vR5aVrpNL" class="imageQuestions">
+      <div id='question7' name='question7' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_q7" name="q7" value="0" required>
+          <label for="a1_q7">1</label><br>
+          <input type="radio" title= "" id="a2_q7" name="q7" value="0" required>
+          <label for="a2_q7">2</label><br>
+          <input type="radio" title= "" id="a3_q7" name="q7" value="0" required>
+          <label for="a3_q7">3</label><br>
+          <input type="radio" title= "" id="a4_q7" name="q7" value="0" required>
+          <label for="a4_q7">4</label><br>
+          <input type="radio" title= "" id="a5_q7" name="q7" value="0" required>
+          <label for="a5_q7">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_q7" name="q7" value="0" required> 
+          <label for="a6_q7">6</label><br>
+          <input type="radio" title= "" id="a7_q7" name="q7" value="0" required>
+          <label for="a7_q7">7</label><br>
+          <input type="radio" title= "" id="a8_q7" name="q7" value="0" required>
+          <label for="a8_q7">8</label><br>
+          <input type="radio" title= "" id="a9_q7" name="q7" value="0" required>
+          <label for="a9_q7">9</label><br>
+          <input type="radio" title= "" id="a10_q7" name="q7" value="0" required>
+          <label for="a10_q7">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_q7" name="q7" value="0" required> 
+          <label for="a11_q7">11</label><br>
+          <input type="radio" title= "" id="a12_q7" name="q7" value="0" required>
+          <label for="a12_q7">12</label><br>
+          <input type="radio" title= "" id="a13_q7" name="q7" value="0" required> 
+          <label for="a13_q7">13</label><br>
+          <input type="radio" title= "" id="a14_q7" name="q7" value="0" required>
+          <label for="a14_q7">14</label><br>
+          <input type="radio" title= "" id="a15_q7" name="q7" value="0" required>
+          <label for="a15_q7">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_q7" name="q7" value="0" required>
+          <label for="a16_q7">16</label><br>
+          <input type="radio" title= "" id="a17_q7" name="q7" value="1" required> <!-- CORRECT -->
+          <label for="a17_q7">17</label><br>
+          <input type="radio" title= "" id="a18_q7" name="q7" value="0" required> 
+          <label for="a18_q7">18</label><br>
+          <input type="radio" title= "" id="a19_q7" name="q7" value="0" required>
+          <label for="a19_q7">19</label><br>
+          <input type="radio" title= "" id="a20_q7" name="q7" value="0" required>
+          <label for="a20_q7">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="time7" name="time7" type="text"/>
+    <input id="time7-start" name="time7-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Flaw Detection Q8 -->
+  <div id='page11' class='pages hidden shuffle '>
+
+    <!-- Question 8 - GAP - NB -->
+    <div class='item item_background'>
+      <p>Choose the distribution, which has a <b>GAP</b> in it.</p>
+      <img src="https://drive.google.com/uc?export=view&id=1oOQQw6FsMelEwHiT7SmuijWZCi0ho0l1" class="imageQuestions">
+      <div id='question8' name='question8' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_q8" name="q8" value="0" required>
+          <label for="a1_q8">1</label><br>
+          <input type="radio" title= "" id="a2_q8" name="q8" value="0" required>
+          <label for="a2_q8">2</label><br>
+          <input type="radio" title= "" id="a3_q8" name="q8" value="0" required>
+          <label for="a3_q8">3</label><br>
+          <input type="radio" title= "" id="a4_q8" name="q8" value="0" required>
+          <label for="a4_q8">4</label><br>
+          <input type="radio" title= "" id="a5_q8" name="q8" value="0" required>
+          <label for="a5_q8">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_q8" name="q8" value="0" required>
+          <label for="a6_q8">6</label><br>
+          <input type="radio" title= "" id="a7_q8" name="q8" value="0" required>
+          <label for="a7_q8">7</label><br>
+          <input type="radio" title= "" id="a8_q8" name="q8" value="0" required>
+          <label for="a8_q8">8</label><br>
+          <input type="radio" title= "" id="a9_q8" name="q8" value="0" required>
+          <label for="a9_q8">9</label><br>
+          <input type="radio" title= "" id="a10_q8" name="q8" value="0" required> 
+          <label for="a10_q8">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_q8" name="q8" value="0" required> 
+          <label for="a11_q8">11</label><br>
+          <input type="radio" title= "" id="a12_q8" name="q8" value="1" required> <!-- CORRECT -->
+          <label for="a12_q8">12</label><br>
+          <input type="radio" title= "" id="a13_q8" name="q8" value="0" required> 
+          <label for="a13_q8">13</label><br>
+          <input type="radio" title= "" id="a14_q8" name="q8" value="0" required>
+          <label for="a14_q8">14</label><br>
+          <input type="radio" title= "" id="a15_q8" name="q8" value="0" required>
+          <label for="a15_q8">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_q8" name="q8" value="0" required>
+          <label for="a16_q8">16</label><br>
+          <input type="radio" title= "" id="a17_q8" name="q8" value="0" required>
+          <label for="a17_q8">17</label><br>
+          <input type="radio" title= "" id="a18_q8" name="q8" value="0" required>
+          <label for="a18_q8">18</label><br>
+          <input type="radio" title= "" id="a19_q8" name="q8" value="0" required>
+          <label for="a19_q8">19</label><br>
+          <input type="radio" title= "" id="a20_q8" name="q8" value="0" required>
+          <label for="a20_q8">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="time8" name="time8" type="text" />
+    <input id="time8-start" name="time8-start" type="text" />
+    </div>
+
+  </div>
+
+ <!-- -------------------------------------------------------- -->
+  <!-- Flaw Detection Q9 -->
+  <div id='page12' class='pages hidden shuffle '>
+
+    <!-- Question 9 - GAP - UB -->
+    <div class='item item_background'>
+      <p>Choose the distribution, which has a <b>GAP</b> in it.</p> 
+      <img src="https://drive.google.com/uc?export=view&id=16FT4mVc_pQzv8F7V-rMuazVF5KCZCKr7" class="imageQuestions">
+      <div id='question9' name='question9' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_q9" name="q9" value="0" required>
+          <label for="a1_q9">1</label><br>
+          <input type="radio" title= "" id="a2_q9" name="q9" value="0" required>
+          <label for="a2_q9">2</label><br>
+          <input type="radio" title= "" id="a3_q9" name="q9" value="0" required> 
+          <label for="a3_q9">3</label><br>
+          <input type="radio" title= "" id="a4_q9" name="q9" value="0" required> 
+          <label for="a4_q9">4</label><br>
+          <input type="radio" title= "" id="a5_q9" name="q9" value="0" required>
+          <label for="a5_q9">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_q9" name="q9" value="0" required>
+          <label for="a6_q9">6</label><br>
+          <input type="radio" title= "" id="a7_q9" name="q9" value="0" required>
+          <label for="a7_q9">7</label><br>
+          <input type="radio" title= "" id="a8_q9" name="q9" value="1" required> <!-- CORRECT -->
+          <label for="a8_q9">8</label><br>
+          <input type="radio" title= "" id="a9_q9" name="q9" value="0" required>
+          <label for="a9_q9">9</label><br>
+          <input type="radio" title= "" id="a10_q9" name="q9" value="0" required>
+          <label for="a10_q9">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_q9" name="q9" value="0" required> 
+          <label for="a11_q9">11</label><br>
+          <input type="radio" title= "" id="a12_q9" name="q9" value="0" required>
+          <label for="a12_q9">12</label><br>
+          <input type="radio" title= "" id="a13_q9" name="q9" value="0" required> 
+          <label for="a13_q9">13</label><br>
+          <input type="radio" title= "" id="a14_q9" name="q9" value="0" required>
+          <label for="a14_q9">14</label><br>
+          <input type="radio" title= "" id="a15_q9" name="q9" value="0" required>
+          <label for="a15_q9">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_q9" name="q9" value="0" required>
+          <label for="a16_q9">16</label><br>
+          <input type="radio" title= "" id="a17_q9" name="q9" value="0" required>
+          <label for="a17_q9">17</label><br>
+          <input type="radio" title= "" id="a18_q9" name="q9" value="0" required>
+          <label for="a18_q9">18</label><br>
+          <input type="radio" title= "" id="a19_q9" name="q9" value="0" required>
+          <label for="a19_q9">19</label><br>
+          <input type="radio" title= "" id="a20_q9" name="q9" value="0" required>
+          <label for="a20_q9">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="time9" name="time9" type="text" />
+    <input id="time9-start" name="time9-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Flaw Detection Q10 -->
+  <div id='page13' class='pages hidden shuffle '>
+
+    <!-- Question 10 - OUTLIER - BB -->
+    <div class='item item_background'>
+      <p>Choose the distribution, which has an <b>OUTLIER</b> in it.</p>
+      <img src="https://drive.google.com/uc?export=view&id=1mgoPwx0J6GZiEbGr_6VJ1owjxAhO_GH1" class="imageQuestions">
+      <div id='question10' name='question10' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_q10" name="q10" value="0" required>
+          <label for="a1_q10">1</label><br>
+          <input type="radio" title= "" id="a2_q10" name="q10" value="0" required>
+          <label for="a2_q10">2</label><br>
+          <input type="radio" title= "" id="a3_q10" name="q10" value="0" required>
+          <label for="a3_q10">3</label><br>
+          <input type="radio" title= "" id="a4_q10" name="q10" value="0" required> 
+          <label for="a4_q10">4</label><br>
+          <input type="radio" title= "" id="a5_q10" name="q10" value="0" required>
+          <label for="a5_q10">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_q10" name="q10" value="0" required>
+          <label for="a6_q10">6</label><br>
+          <input type="radio" title= "" id="a7_q10" name="q10" value="0" required>
+          <label for="a7_q10">7</label><br>
+          <input type="radio" title= "" id="a8_q10" name="q10" value="0" required>
+          <label for="a8_q10">8</label><br>
+          <input type="radio" title= "" id="a9_q10" name="q10" value="0" required>
+          <label for="a9_q10">9</label><br>
+          <input type="radio" title= "" id="a10_q10" name="q10" value="0" required>
+          <label for="a10_q10">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_q10" name="q10" value="0" required> 
+          <label for="a11_q10">11</label><br>
+          <input type="radio" title= "" id="a12_q10" name="q10" value="0" required> 
+          <label for="a12_q10">12</label><br>
+          <input type="radio" title= "" id="a13_q10" name="q10" value="1" required> <!-- CORRECT -->
+          <label for="a13_q10">13</label><br>
+          <input type="radio" title= "" id="a14_q10" name="q10" value="0" required>
+          <label for="a14_q10">14</label><br>
+          <input type="radio" title= "" id="a15_q10" name="q10" value="0" required>
+          <label for="a15_q10">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_q10" name="q10" value="0" required>
+          <label for="a16_q10">16</label><br>
+          <input type="radio" title= "" id="a17_q10" name="q10" value="0" required>
+          <label for="a17_q10">17</label><br>
+          <input type="radio" title= "" id="a18_q10" name="q10" value="0" required> 
+          <label for="a18_q10">18</label><br>
+          <input type="radio" title= "" id="a19_q10" name="q10" value="0" required>
+          <label for="a19_q10">19</label><br>
+          <input type="radio" title= "" id="a20_q10" name="q10" value="0" required>
+          <label for="a20_q10">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="time10" name="time10" type="text" />
+    <input id="time10-start" name="time10-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Flaw Detection Q11 -->
+  <div id='page14' class='pages hidden shuffle '>
+
+    <!-- Question 11 - OUTLIER - NB -->
+    <div class='item item_background'>
+      <p>Choose the distribution, which has an <b>OUTLIER</b> in it.</p>
+      <img src="https://drive.google.com/uc?export=view&id=1qmoveBJriP0mvEu4ncOfWdqVeVLLswGL" class="imageQuestions">
+      <div id='question11' name='question11' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_q11" name="q11" value="0" required>
+          <label for="a1_q11">1</label><br>
+          <input type="radio" title= "" id="a2_q11" name="q11" value="1" required> <!-- CORRECT -->
+          <label for="a2_q11">2</label><br>
+          <input type="radio" title= "" id="a3_q11" name="q11" value="0" required>
+          <label for="a3_q11">3</label><br>
+          <input type="radio" title= "" id="a4_q11" name="q11" value="0" required> 
+          <label for="a4_q11">4</label><br>
+          <input type="radio" title= "" id="a5_q11" name="q11" value="0" required>
+          <label for="a5_q11">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_q11" name="q11" value="0" required>
+          <label for="a6_q11">6</label><br>
+          <input type="radio" title= "" id="a7_q11" name="q11" value="0" required>
+          <label for="a7_q11">7</label><br>
+          <input type="radio" title= "" id="a8_q11" name="q11" value="0" required>
+          <label for="a8_q11">8</label><br>
+          <input type="radio" title= "" id="a9_q11" name="q11" value="0" required>
+          <label for="a9_q11">9</label><br>
+          <input type="radio" title= "" id="a10_q11" name="q11" value="0" required>
+          <label for="a10_q11">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_q11" name="q11" value="0" required> 
+          <label for="a11_q11">11</label><br>
+          <input type="radio" title= "" id="a12_q11" name="q11" value="0" required>
+          <label for="a12_q11">12</label><br>
+          <input type="radio" title= "" id="a13_q11" name="q11" value="0" required> 
+          <label for="a13_q11">13</label><br>
+          <input type="radio" title= "" id="a14_q11" name="q11" value="0" required>
+          <label for="a14_q11">14</label><br>
+          <input type="radio" title= "" id="a15_q11" name="q11" value="0" required> 
+          <label for="a15_q11">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_q11" name="q11" value="0" required>
+          <label for="a16_q11">16</label><br>
+          <input type="radio" title= "" id="a17_q11" name="q11" value="0" required>
+          <label for="a17_q11">17</label><br>
+          <input type="radio" title= "" id="a18_q11" name="q11" value="0" required> 
+          <label for="a18_q11">18</label><br>
+          <input type="radio" title= "" id="a19_q11" name="q11" value="0" required>
+          <label for="a19_q11">19</label><br>
+          <input type="radio" title= "" id="a20_q11" name="q11" value="0" required>
+          <label for="a20_q11">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="time11" name="time11" type="text" />
+    <input id="time11-start" name="time11-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!--Flaw Detection Q12 -->
+  <div id='page15' class='pages hidden shuffle '>
+
+    <!-- Question 12 - OUTLIER - UB -->
+    <div class='item item_background'>
+      <p>Choose the distribution, which has an <b>OUTLIER</b> in it.</p> 
+      <img src="https://drive.google.com/uc?export=view&id=15ltnRTWT1gNWv6KeVv1l9c_8FKSJqttw" class="imageQuestions">
+      <div id='question12' name='question12' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_q12" name="q12" value="0" required>
+          <label for="a1_q12">1</label><br>
+          <input type="radio" title= "" id="a2_q12" name="q12" value="0" required> 
+          <label for="a2_q12">2</label><br>
+          <input type="radio" title= "" id="a3_q12" name="q12" value="0" required>
+          <label for="a3_q12">3</label><br>
+          <input type="radio" title= "" id="a4_q12" name="q12" value="0" required> 
+          <label for="a4_q12">4</label><br>
+          <input type="radio" title= "" id="a5_q12" name="q12" value="0" required>
+          <label for="a5_q12">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_q12" name="q12" value="0" required>
+          <label for="a6_q12">6</label><br>
+          <input type="radio" title= "" id="a7_q12" name="q12" value="0" required>
+          <label for="a7_q12">7</label><br>
+          <input type="radio" title= "" id="a8_q12" name="q12" value="0" required>
+          <label for="a8_q12">8</label><br>
+          <input type="radio" title= "" id="a9_q12" name="q12" value="0" required>
+          <label for="a9_q12">9</label><br>
+          <input type="radio" title= "" id="a10_q12" name="q12" value="0" required>
+          <label for="a10_q12">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_q12" name="q12" value="0" required> 
+          <label for="a11_q12">11</label><br>
+          <input type="radio" title= "" id="a12_q12" name="q12" value="0" required>
+          <label for="a12_q12">12</label><br>
+          <input type="radio" title= "" id="a13_q12" name="q12" value="0" required> 
+          <label for="a13_q12">13</label><br>
+          <input type="radio" title= "" id="a14_q12" name="q12" value="0" required>
+          <label for="a14_q12">14</label><br>
+          <input type="radio" title= "" id="a15_q12" name="q12" value="0" required>
+          <label for="a15_q12">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_q12" name="q12" value="0" required>
+          <label for="a16_q12">16</label><br>
+          <input type="radio" title= "" id="a17_q12" name="q12" value="0" required>
+          <label for="a17_q12">17</label><br>
+          <input type="radio" title= "" id="a18_q12" name="q12" value="1" required> <!-- CORRECT -->
+          <label for="a18_q12">18</label><br>
+          <input type="radio" title= "" id="a19_q12" name="q12" value="0" required>
+          <label for="a19_q12">19</label><br>
+          <input type="radio" title= "" id="a20_q12" name="q12" value="0" required>
+          <label for="a20_q12">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="time12" name="time12" type="text" />
+    <input id="time12-start" name="time12-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Flaw Detection Q13 -->
+  <div id='page16' class='pages hidden shuffle '>
+
+    <!-- Question 13 - SPIKE - BB -->
+    <div class='item item_background'>
+      <p>Choose the distribution, which has an <b>SPIKE</b> in it.</p>
+      <img src="https://drive.google.com/uc?export=view&id=1fppES-LYF5b62TYa6VkAsaZrQ5CgmyBZ" class="imageQuestions">
+      <div id='question13' name='question13' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_q13" name="q13" value="0" required>
+          <label for="a1_q13">1</label><br>
+          <input type="radio" title= "" id="a2_q13" name="q13" value="0" required> 
+          <label for="a2_q13">2</label><br>
+          <input type="radio" title= "" id="a3_q13" name="q13" value="0" required>
+          <label for="a3_q13">3</label><br>
+          <input type="radio" title= "" id="a4_q13" name="q13" value="0" required> 
+          <label for="a4_q13">4</label><br>
+          <input type="radio" title= "" id="a5_q13" name="q13" value="0" required> 
+          <label for="a5_q13">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_q13" name="q13" value="0" required>
+          <label for="a6_q13">6</label><br>
+          <input type="radio" title= "" id="a7_q13" name="q13" value="1" required> <!-- CORRECT -->
+          <label for="a7_q13">7</label><br>
+          <input type="radio" title= "" id="a8_q13" name="q13" value="0" required> 
+          <label for="a8_q13">8</label><br>
+          <input type="radio" title= "" id="a9_q13" name="q13" value="0" required>
+          <label for="a9_q13">9</label><br>
+          <input type="radio" title= "" id="a10_q13" name="q13" value="0" required>
+          <label for="a10_q13">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_q13" name="q13" value="0" required> 
+          <label for="a11_q13">11</label><br>
+          <input type="radio" title= "" id="a12_q13" name="q13" value="0" required>
+          <label for="a12_q13">12</label><br>
+          <input type="radio" title= "" id="a13_q13" name="q13" value="0" required> 
+          <label for="a13_q13">13</label><br>
+          <input type="radio" title= "" id="a14_q13" name="q13" value="0" required>
+          <label for="a14_q13">14</label><br>
+          <input type="radio" title= "" id="a15_q13" name="q13" value="0" required>
+          <label for="a15_q13">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_q13" name="q13" value="0" required>
+          <label for="a16_q13">16</label><br>
+          <input type="radio" title= "" id="a17_q13" name="q13" value="0" required>
+          <label for="a17_q13">17</label><br>
+          <input type="radio" title= "" id="a18_q13" name="q13" value="0" required> 
+          <label for="a18_q13">18</label><br>
+          <input type="radio" title= "" id="a19_q13" name="q13" value="0" required>
+          <label for="a19_q13">19</label><br>
+          <input type="radio" title= "" id="a20_q13" name="q13" value="0" required>
+          <label for="a20_q13">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="time13" name="time13" type="text" />
+    <input id="time13-start" name="time13-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Flaw Detection Q14 -->
+  <div id='page17' class='pages hidden shuffle '>
+
+    <!-- Question 14 - SPIKE - NB -->
+    <div class='item item_background'>
+      <p>Choose the distribution, which has an <b>SPIKE</b> in it.</p>
+      <img src="https://drive.google.com/uc?export=view&id=1_03J53b9yTA9pxWpEm1XHkxcKBcuXDYG" class="imageQuestions">
+      <div id='question14' name='question14' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_q14" name="q14" value="0" required>
+          <label for="a1_q14">1</label><br>
+          <input type="radio" title= "" id="a2_q14" name="q14" value="0" required> 
+          <label for="a2_q14">2</label><br>
+          <input type="radio" title= "" id="a3_q14" name="q14" value="0" required>
+          <label for="a3_q14">3</label><br>
+          <input type="radio" title= "" id="a4_q14" name="q14" value="0" required> 
+          <label for="a4_q14">4</label><br>
+          <input type="radio" title= "" id="a5_q14" name="q14" value="0" required>
+          <label for="a5_q14">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_q14" name="q14" value="0" required> 
+          <label for="a6_q14">6</label><br>
+          <input type="radio" title= "" id="a7_q14" name="q14" value="0" required>
+          <label for="a7_q14">7</label><br>
+          <input type="radio" title= "" id="a8_q14" name="q14" value="0" required> 
+          <label for="a8_q14">8</label><br>
+          <input type="radio" title= "" id="a9_q14" name="q14" value="0" required>
+          <label for="a9_q14">9</label><br>
+          <input type="radio" title= "" id="a10_q14" name="q14" value="0" required> 
+          <label for="a10_q14">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_q14" name="q14" value="0" required> 
+          <label for="a11_q14">11</label><br>
+          <input type="radio" title= "" id="a12_q14" name="q14" value="0" required>
+          <label for="a12_q14">12</label><br>
+          <input type="radio" title= "" id="a13_q14" name="q14" value="0" required> 
+          <label for="a13_q14">13</label><br>
+          <input type="radio" title= "" id="a14_q14" name="q14" value="1" required> <!-- CORRECT -->
+          <label for="a14_q14">14</label><br>
+          <input type="radio" title= "" id="a15_q14" name="q14" value="0" required>
+          <label for="a15_q14">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_q14" name="q14" value="0" required>
+          <label for="a16_q14">16</label><br>
+          <input type="radio" title= "" id="a17_q14" name="q14" value="0" required>
+          <label for="a17_q14">17</label><br>
+          <input type="radio" title= "" id="a18_q14" name="q14" value="0" required> 
+          <label for="a18_q14">18</label><br>
+          <input type="radio" title= "" id="a19_q14" name="q14" value="0" required>
+          <label for="a19_q14">19</label><br>
+          <input type="radio" title= "" id="a20_q14" name="q14" value="0" required>
+          <label for="a20_q14">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="time14" name="time14" type="text" />
+    <input id="time14-start" name="time14-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+  <!-- Flaw Detection Q15 -->
+  <div id='page18' class='pages hidden shuffle '>
+
+    <!-- Question 15 - SPIKE - UB -->
+    <div class='item item_background'>
+      <p>Choose the distribution, which has an <b>SPIKE</b> in it.</p>
+      <img src="https://drive.google.com/uc?export=view&id=1zdk3DAM2DEPwJyLxRP7rCJrVuQ99hgm4" class="imageQuestions">
+      <div id='question15' name='question15' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_q15" name="q15" value="0" required>
+          <label for="a1_q15">1</label><br>
+          <input type="radio" title= "" id="a2_q15" name="q15" value="0" required> 
+          <label for="a2_q15">2</label><br>
+          <input type="radio" title= "" id="a3_q15" name="q15" value="0" required>
+          <label for="a3_q15">3</label><br>
+          <input type="radio" title= "" id="a4_q15" name="q15" value="0" required> 
+          <label for="a4_q15">4</label><br>
+          <input type="radio" title= "" id="a5_q15" name="q15" value="0" required>
+          <label for="a5_q15">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_q15" name="q15" value="0" required> 
+          <label for="a6_q15">6</label><br>
+          <input type="radio" title= "" id="a7_q15" name="q15" value="0" required>
+          <label for="a7_q15">7</label><br>
+          <input type="radio" title= "" id="a8_q15" name="q15" value="0" required> 
+          <label for="a8_q15">8</label><br>
+          <input type="radio" title= "" id="a9_q15" name="q15" value="0" required>
+          <label for="a9_q15">9</label><br>
+          <input type="radio" title= "" id="a10_q15" name="q15" value="0" required>
+          <label for="a10_q15">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_q15" name="q15" value="0" required> 
+          <label for="a11_q15">11</label><br>
+          <input type="radio" title= "" id="a12_q15" name="q15" value="0" required>
+          <label for="a12_q15">12</label><br>
+          <input type="radio" title= "" id="a13_q15" name="q15" value="0" required> 
+          <label for="a13_q15">13</label><br>
+          <input type="radio" title= "" id="a14_q15" name="q15" value="0" required>
+          <label for="a14_q15">14</label><br>
+          <input type="radio" title= "" id="a15_q15" name="q15" value="0" required>
+          <label for="a15_q15">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_q15" name="q15" value="1" required> <!-- CORRECT -->
+          <label for="a16_q15">16</label><br>
+          <input type="radio" title= "" id="a17_q15" name="q15" value="0" required> 
+          <label for="a17_q15">17</label><br>
+          <input type="radio" title= "" id="a18_q15" name="q15" value="0" required> 
+          <label for="a18_q15">18</label><br>
+          <input type="radio" title= "" id="a19_q15" name="q15" value="0" required>
+          <label for="a19_q15">19</label><br>
+          <input type="radio" title= "" id="a20_q15" name="q15" value="0" required>
+          <label for="a20_q15">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="time15" name="time15" type="text" />
+    <input id="time15-start" name="time15-start" type="text" />
+    </div>
+
+  </div>
+
+  <!-- -------------------------------------------------------- -->
+<!-- AttentionTASK -->
+<div id="page19" class='pages hidden shuffle'>
+    <div class='item item_background'>
+      <p>Click answer <b>16!</b> </p>
+      <img src="https://drive.google.com/uc?export=view&id=1BHTro7Qkl3JLzhOU0JzaTz7z7lP00A04" class="imageQuestions">
+      <div id='attentionTask1' name='attentionTask1' class="form-group wrap">
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a1_f1" name="f1" value="0" required>
+          <label for="a1_f1">1</label><br>
+          <input type="radio" title= "" id="a2_f1" name="f1" value="0" required>
+          <label for="a2_f1">2</label><br>
+          <input type="radio" title= "" id="a3_f1" name="f1" value="0" required>
+          <label for="a3_f1">3</label><br>
+          <input type="radio" title= "" id="a4_f1" name="f1" value="0" required>
+          <label for="a4_f1">4</label><br>
+          <input type="radio" title= "" id="a5_f1" name="f1" value="0" required>
+          <label for="a5_f1">5</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a6_f1" name="f1" value="0" required>
+          <label for="a6_f1">6</label><br>
+          <input type="radio" title= "" id="a7_f1" name="f1" value="0" required>
+          <label for="a7_f1">7</label><br>
+          <input type="radio" title= "" id="a8_f1" name="f1" value="0" required>
+          <label for="a8_f1">8</label><br>
+          <input type="radio" title= "" id="a9_f1" name="f1" value="0" required>
+          <label for="a9_f1">9</label><br>
+          <input type="radio" title= "" id="a10_f1" name="f1" value="0" required>
+          <label for="a10_f1">10</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a11_f1" name="f1" value="0" required> 
+          <label for="a11_f1">11</label><br>
+          <input type="radio" title= "" id="a12_f1" name="f1" value="0" required>
+          <label for="a12_f1">12</label><br>
+          <input type="radio" title= "" id="a13_f1" name="f1" value="0" required> 
+          <label for="a13_f1">13</label><br>
+          <input type="radio" title= "" id="a14_f1" name="f1" value="0" required>
+          <label for="a14_f1">14</label><br>
+          <input type="radio" title= "" id="a15_f1" name="f1" value="0" required>
+          <label for="a15_f1">15</label>
+        </div>
+        <div class="flawDetection">
+          <input type="radio" title= "" id="a16_f1" name="f1" value="1" required> <!-- CORRECT -->
+          <label for="a16_f1">16</label><br>
+          <input type="radio" title= "" id="a17_f1" name="f1" value="0" required>
+          <label for="a17_f1">17</label><br>
+          <input type="radio" title= "" id="a18_f1" name="f1" value="0" required> 
+          <label for="a18_f1">18</label><br>
+          <input type="radio" title= "" id="a19_f1" name="f1" value="0" required>
+          <label for="a19_f1">19</label><br>
+          <input type="radio" title= "" id="a20_f1" name="f1" value="0" required>
+          <label for="a20_f1">20</label>
+        </div>
+      </div>  
+    </div>
+
+    <div class="hidden time">
+    <input id="timef1" name="timef1" type="text" />
+    <input id="timef1-start" name="timef1-start" type="text" />
+    </div>
+
+</div>
+
+</div>
+
+<!-- -------------------------------------------------------- -->
+<!-- Outro Page-->
+<div id='page20' class='pages'>
+</div>
+
+
+<!-- -------------------------------------------------------- -->
+<!-- Buttons for Control -->
+<div id='btnBar' class='btn-bar'>
+  <p class='item'>
+  <button id='continue-button'>Continue >></button>
+  <button id='stop-button'>End Study</button>
+  <input type='submit' id='submit-button' class='hidden' value='Submit' />
+  <label id='error-msg' class='hidden'>There was a problem submitting the form.</label>
+  <label id='page-info'>0/16</label>
+  </p>
+</div>
+
+<!-- section counters -->
+<div>
+  <input type='text' id='page-counter' value='0' class='hidden'/>
+  <input type='text' id='total-pages' value='20' class='hidden'/> <!-- TODO CHANGE TO REAL NUMBER OF SECTIONs -->
+</div>
+<div id='confirm' class='confirm hidden'> </div> 
+
+<!-- confirm to end the study pop up -->
+<div class="overlay hidden" id="overlay" >
+    <div class="confirm-box">
+      <div onclick="closeConfirmBox()" class="close">&#10006;</div>
+      <h3>End Study</h3>
+      <p>Are you sure you want to quit the study?</p>
+      <div class='confirmButtonContainer'>
+        <button class="confirmButton confirmButton_left" onclick="isConfirm(true)">Yes - End Study</button>
+        <button class="confirmButton confirmButton_right" onclick="isConfirm(false)">No - Continue Study</button>
+      </div>
+    </div>
+</div>
+
+</form>
+
+</div>
+</div>
+</div>

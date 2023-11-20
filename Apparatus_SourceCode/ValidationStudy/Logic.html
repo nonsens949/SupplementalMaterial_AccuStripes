@@ -1,0 +1,959 @@
+<!-- This is script contains the logic of the validation study. -->
+<!-- It checks if the technical requirements are fullfilled. -->
+<!-- This script generates the likert scale questions and adds them to the main questions in the files Questions.html. -->
+<!-- It contains the logic to control the study procedure, like shuffling the questions, check that the questions is answered before continuing, etc. -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
+
+<script>
+
+const errorCodes = [0, // device/browser size error
+                    1, //study was ended by participant
+                    2 //study already done
+                   ];
+const maxTrials = 3;
+var trials = 0;
+
+var breakPageActive = false;
+var INDEX_IntroPage = 0;
+var INDEX_IndenticiationExplanation = 1;
+var INDEX_ComparisonExplanation = 4;
+var INDEX_FlawDetectionExplanation = 7;
+var INDEX_OutroPage = 15;
+
+var questionsAnswered = 0;
+var numberOfQuestions = 10; //0-10 indx for 11 questions (10 + 1 attention task)
+var attentionTaskShown = false;
+
+$(document).ready(function () {
+    
+    /****        PopUps for Training Questions that show correct answer       ****/ 
+    $(document).on('change','input[type=radio][name="e1"]', function () {
+        //tooltip for confident example question
+        var text = "Very good choice! :D";
+        $("#ex1_a").empty();
+        
+        $("#ex1_a").append(text);
+        $("#ex1_a").css("visibility", "visible");
+    });
+
+    $(document).on('change','input[type=radio][name="e2"]', function () {
+        //tooltip for identification example question
+        var text = "Answer <b>3</b> is correct.";
+        $("#ex2_a").empty();
+        
+        $("#ex2_a").append(text);
+        $("#ex2_a").css("visibility", "visible");
+    });
+
+    $(document).on('change','input[type=radio][name="e3"]', function () {
+        //tooltip for comparison example question
+        var text = "Answer <b>5</b> is correct. <br> The most similar to the most dissimilar: <br> 5 - 1 - 3 - 2 - 4";
+        $("#ex3_a").empty();
+        
+        $("#ex3_a").append(text);
+        $("#ex3_a").css("visibility", "visible");
+    });
+
+    $(document).on('change','input[type=radio][name="e4"]', function () {
+        //tooltip for data flaw example question GAP
+        var text = "Answer <b>20</b> is correct.";
+        $("#ex4_a").empty();
+        
+        $("#ex4_a").append(text);
+        $("#ex4_a").css("visibility", "visible");
+    });
+
+    $(document).on('change','input[type=radio][name="e5"]', function () {
+        //tooltip for data flaw example question OUTLIER
+        var text = "Answer <b>6</b> is correct.";
+        $("#ex5_a").empty();
+        
+        $("#ex5_a").append(text);
+        $("#ex5_a").css("visibility", "visible");
+    });
+
+    $(document).on('change','input[type=radio][name="e6"]', function () {
+        //tooltip for data flaw example question SPIKE
+        var text = "Answer <b>14</b> is correct.";
+        $("#ex6_a").empty();
+        
+        $("#ex6_a").append(text);
+        $("#ex6_a").css("visibility", "visible");
+    });
+
+    /****        PopUps for Training Questions END     ****/ 
+    $(document).on('click', '#stop-button', function (event) { 
+      event.preventDefault();
+      showConfirmBox();
+    });
+
+    $(document).on('click', '#submit-button', function (event) {
+
+        event.preventDefault();
+        $(this).attr('disabled', 'disabled');
+        
+        var currPageID = parseInt($('#page-counter').val());
+        var unanswered = false;
+        unanswered = validate("breakPage"+currPageID, "myForm");
+
+        if ( !unanswered ) {
+            
+            questionsAnswered = questionsAnswered + 1;
+
+            //store the from and send it to server (.gs code)
+            storeFormOnCompletion();
+            $( "#myForm :input" ).prop("disabled", true);
+
+            //show next section as a whole from the top
+            scroolToTop();
+        } 
+        else {
+            $(this).removeAttr("disabled");
+        }
+    });
+
+    //main study logic
+    $(document).on('click', '#continue-button',function(event) {
+      
+      event.preventDefault();
+      var unanswered = false;
+
+      var container = document.getElementById("myForm");
+
+      var currPageID = parseInt($('#page-counter').val());
+      var nextPageID;
+      var totalPages = parseInt($('#total-pages').val());
+
+      //check techniqual requirements
+      if(checkScreenSize(currPageID)) return;
+
+      //check if question was answered
+      if(breakPageActive)
+      {
+        unanswered = validate("breakPage"+currPageID, "myForm");
+      }else
+      {
+        unanswered = validate("page"+currPageID, "myForm");
+      }
+
+      if(currPageID == INDEX_IntroPage)
+      { //first page of evaluation
+          currPageIsQuestion = false;
+          nextPageID = currPageID + 1;
+
+      }else if(breakPageActive || 
+              (currPageID == INDEX_IndenticiationExplanation) ||
+              (currPageID == INDEX_ComparisonExplanation) || 
+              (currPageID == INDEX_FlawDetectionExplanation))
+      {
+        //find the next page & shuffle questions if necessary
+        var currPageIsQuestion = true;
+        var parentElem;
+        var currPageElem;
+        var nextPageElem;
+
+        if(currPageID == INDEX_IndenticiationExplanation)
+        {//next questions are of the indentification challenge
+          parentElem = container.getElementsByClassName("typeIdentification")[0];
+          nextPageID = getNextPageID(parentElem);
+          currPageIsQuestion = false;
+
+        }else if(currPageID == INDEX_ComparisonExplanation){
+          // next questions are of the comparison challenge
+          parentElem = container.getElementsByClassName("typeComparison")[0];
+          nextPageID = getNextPageID(parentElem);
+          currPageIsQuestion = false;
+        
+        }else if(currPageID == INDEX_FlawDetectionExplanation){
+          // next questions are of the flaw detection challenge
+          parentElem = container.getElementsByClassName("typeFlawDetection")[0];
+          nextPageID = getNextPageID(parentElem);
+          currPageIsQuestion = false;
+
+        }else{
+          //current page is a question
+          //find the next question or the next page
+          currPageIsQuestion = true;
+          currPageElem = document.getElementById("page" + currPageID);
+          nextPageElem = currPageElem.nextElementSibling;
+          
+          if(nextPageElem == null)
+          { //next page is not a question
+            if(currPageID > INDEX_IndenticiationExplanation && currPageID < INDEX_ComparisonExplanation)
+            {//currently in the identification challenges
+                nextPageID = INDEX_ComparisonExplanation;
+            }else if(currPageID > INDEX_ComparisonExplanation && currPageID < INDEX_FlawDetectionExplanation)
+            {//currently in the comparison challenges
+                nextPageID = INDEX_FlawDetectionExplanation;
+            }else if(currPageID > INDEX_FlawDetectionExplanation && currPageID < INDEX_OutroPage)
+            {//currently in the flaw detection challenges
+                nextPageID = INDEX_OutroPage;
+            }
+          }else
+          { //next page is a question
+            nextPageID = getPageID(nextPageElem);
+          }
+        }
+      }else
+      {
+        //do before break page is shown
+        //check if all questions were answered & store time needed
+        var date = new Date();
+        
+        if(!currPageIsQuestion){
+          //store time for this question
+          var currQuestionId = getQuestionFromPage(currPageID)
+          var time = ( date.getTime() - new Date( $("#time" + currQuestionId + "-start").val() ).getTime() )/1000;
+          $( "#time" + currQuestionId ).val( time.toString() );
+        }
+      }
+
+      if ((!unanswered)) {
+        $('#page' + currPageID).hide();
+        
+        if(breakPageActive || 
+          (currPageID == INDEX_IntroPage) || 
+          (currPageID == INDEX_IndenticiationExplanation) || 
+          (currPageID == INDEX_ComparisonExplanation) ||
+          (currPageID == INDEX_FlawDetectionExplanation))
+        {
+          //show new page after break page
+          $("#breakPage" + currPageID).hide();
+          $('#page-counter').val(nextPageID);
+          $('#page' + nextPageID).show();
+          
+          //if it was a question store how many questions were already answered
+          if(breakPageActive) questionsAnswered = questionsAnswered + 1;
+          breakPageActive = false;
+          
+          //page info logic & set timer for next question
+          if((nextPageID == INDEX_IntroPage) || 
+          (nextPageID == INDEX_IndenticiationExplanation) || 
+          (nextPageID == INDEX_ComparisonExplanation) ||
+          (nextPageID == INDEX_FlawDetectionExplanation))
+          { // next is other page (explanation page, etc.)
+            $('#page-info').hide();
+          }
+          else
+          { //next is question
+            $('#page-info').show();
+            //initialize start time for the next question
+            var date = new Date();
+            $("#time" + getQuestionFromPage(nextPageID) + "-start").val(date);
+            //console.log("START TIME at page " + getQuestionFromPage(nextPageID));
+          }
+          
+          $('#page-info').text((questionsAnswered+1) + "/" + (numberOfQuestions+1));
+
+        }else{
+          //show the break page for page
+          var questionID = getQuestionFromPage(currPageID);
+          addBreakPage(currPageID, questionID);
+
+          if (questionsAnswered == (numberOfQuestions))
+          {
+            $('#continue-button').hide();
+            $('#submit-button').show();
+          }
+          $("#breakPage" + currPageID).show();
+          breakPageActive = true;
+        }
+        
+        //show next section as a whole from the top
+        scroolToTop();
+      }
+      
+    });
+});
+
+function getNextPageID(parentElem)
+{
+  var questions = Array.prototype.slice.call(parentElem.children);
+
+  shuffle(questions);
+  var nextPageElem = parentElem.children[0];
+  var nextPageID = getPageID(nextPageElem);
+
+  return nextPageID;
+}
+
+function getPageID(elem)
+{
+  var fullId = elem.id.toString();
+  var origID = fullId.slice(fullId.length-2, fullId.length);
+
+  if(origID[0] == "e")
+  { //one digit after "page"
+    id = origID[1];
+  }else
+  { //two digit after "page"
+    id = origID;
+  }
+  return id;
+}
+
+function getQuestionID(elem)
+{
+  var fullId = elem.id.toString();
+  var origID = fullId.slice(fullId.length-2, fullId.length);
+
+  if(origID[0] == "n")
+  { //one digit after "question"
+    id = origID[1]
+  }else if(fullId[0] == "f")
+  { //catch attentionTask question
+    if(origID[0] == "k")
+    {  // one digit after f
+      id = "f" + origID[1]; //f1, f2, f3...
+    }else{
+      //two digits after f
+        id = "f" + orgID; //f10,f11,...
+    }  
+  }
+  else
+  { //two digits after "question"
+    id = origID;
+  }
+  return id;
+}
+
+function getQuestionFromPage(pageID)
+{
+  var name = "page"+pageID;
+  var id = $("#"+name).find('.time').children().first().attr('id');
+  var idNumber = id.slice(id.length-2);
+
+  if(isNaN(parseInt(idNumber)))
+  {
+    if(idNumber.slice(-2,-1) == "f")
+    { //attention task question
+      idNumber = "f"+idNumber.slice(-1);
+    }else
+    { //main question
+      idNumber = idNumber.slice(idNumber.length-1);
+    }
+  }
+
+  return idNumber;
+}
+
+function showConfirmBox() 
+{
+    $( '#overlay' ).show();
+    scroolToTop();
+}
+
+function closeConfirmBox() 
+{
+  $( '#overlay' ).hide();
+}
+
+function isConfirm(answer) {
+  if (answer) 
+  {
+    closeConfirmBox();
+    //store the from and send it to server (.gs code)
+    storeFormOnAbortion(); // use if data of users should be stored even if they aborted
+
+    //show end page
+    var currPageID = parseInt($('#page-counter').val());
+    addOutroPage(currPageID, errorCodes[1]);
+  } else 
+  {
+    closeConfirmBox();
+  }
+}
+
+/****        SECURITY METHODS       ****/ 
+
+function checkScreenSize(currentPageID)
+{ //screen size has to be bigger than 1920x1080
+  var SCREEN_MINWIDTH = 1920;
+  var SCREEN_MINHEIGHT = 1080;
+
+  var BROWSER_MINWIDTH = (SCREEN_MINWIDTH*0.85); //85% of monitor --> >=1.632px
+  var BROWSER_MINHEIGHT = (SCREEN_MINHEIGHT*0.55); //55% of monitor --> >=594px
+
+  //size of monitor/device
+  var monitor_w = screen.width;
+  var monitor_h = screen.height;
+
+  //size of browser window
+  var browser_w = window.innerWidth;
+  var browser_h = window.innerHeight; 
+  
+  if(monitor_w < SCREEN_MINWIDTH || monitor_h < SCREEN_MINHEIGHT)
+  {
+    //go to the last page
+    addOutroPage(currentPageID, errorCodes[0]);
+    return true;
+  }
+
+  if(browser_w < BROWSER_MINWIDTH || browser_h < BROWSER_MINHEIGHT)
+  {
+    if(currentPageID == 0)
+    {//browser is not full size at beginning of the study
+      addSizeErrorMessageFirstPage();
+      return true;
+
+    }else{
+      //browser is minimized during the study
+      if(trials < maxTrials)
+      { 
+        addSizeErrorMessage($('#page'+currentPageID));
+      }else
+      {
+        //study is ended
+        addOutroPage(currentPageID, errorCodes[0]);
+      }
+      
+      trials = trials + 1;
+      return true;
+    }
+  }else
+  { //browser is now set to full screen
+     if(currentPageID == 0)
+    {//browser is not full size at beginning of the study
+      removeSizeErrorMessageFirstPage();
+      return false;
+    }else
+    {
+      removeSizeErrorMessage($('#page'+currentPageID));
+      return false;
+    }
+  }
+
+  return false;
+}
+/****        SECURITY METHODS END      ****/ 
+
+// Client-side validation
+function validate(wholePageID, parentForm) {
+    var unanswered = null;
+    var radioNames = [], checkboxNames = [];
+    var currPage = 'div.' + wholePageID.toString();
+
+    $('#' + parentForm.toString() + ' #' + wholePageID + ' :input').each(function () {
+        var type = $(this).attr('type');
+
+        if (type == undefined) type = $(this).prop("tagName");
+        var name = $(this).attr('name');
+        var id = $(this).attr('id')
+        var required = null;
+        var value = null;
+
+        if($( this ).prop( 'required' )){
+          required = true;
+        }
+
+        if (required) {
+            
+            if (type == 'text' || type == 'TEXTAREA') {
+                value = $(this).val().replace(/\s/g, ""); // remove all spaces, returns
+            } else if (type == 'radio' && radioNames.indexOf(name) < 0) { // only look at a radio group once
+                value = $('input[name=' + name + ']:checked', '#myForm').val();
+            } else if (type == 'SELECT') {
+                value = $("#" + id + " option:selected").text();
+            } else if ( type == 'checkbox' && checkboxNames.indexOf(name) < 0) {
+                value = $('input[name=' + name + ']').is(':checked');
+            } else if ( ( type == 'date' || type == 'time' || type == 'datetime-local' ) ) { // not datetime combo
+                value =  $(this).val();
+            } 
+            
+            // Flag unanswered as true and show required styling and msg
+            if (!value) {
+
+                if (type == 'radio' && radioNames.indexOf(name) < 0) {
+                    // Only do this once for each radio group
+                    radioNames.push(name);
+                    var parent = $(this).parent().parent();
+                    parent.addClass("red-border");
+                    unanswered = true;
+                    parent.children('.error').show();
+                }
+                
+                else if (type == 'checkbox'  && checkboxNames.indexOf(name) < 0) {
+                    checkboxNames.push(name);
+                    var parent = $(this).parent();
+                    parent.addClass("red-border");
+                    unanswered = true;
+                    parent.children('.error').show();
+                }
+                
+                if (type != 'radio' && type != 'checkbox') {
+                    var parent = $(this).parent();
+                    parent.addClass("red-border");
+                    unanswered = true;
+                    parent.children('.error').show();
+                }
+
+            } else { // Remove required styling and msg
+
+                if (type == 'radio' && radioNames.indexOf(name) < 0) {
+                    var parent = $(this).parent().parent();
+                    if (parent.hasClass("red-border")) {
+                        parent.removeClass("red-border");
+                        parent.children('.error').hide();
+                    }
+                } else {
+                    var parent = $(this).parent();
+                    if (parent.hasClass("red-border")) {
+                        parent.removeClass("red-border");
+                        parent.children('.error').hide();
+                        if (type = 'checkbox') checkboxNames.push(name);
+                    }
+                }
+            }
+        }
+    });
+    
+    return unanswered;
+}
+
+function storeFormOnCompletion()
+{
+  var data = '';
+  var form_data = JSON.stringify( $( "#myForm" ).serializeArray() );
+
+  //workerId & completionCode to FormData
+  completionCode = getCompletionCode();
+    
+  var workerID_data = '{"name":"workerID","value":"' + workerID + '"}';
+  var completionCode_data = '{"name":"completionCode","value":"' + completionCode + '"}';
+  form_data = form_data.slice(1);
+
+  //put together, workerID, completionCode and answers of study  
+  data = data.concat('[',workerID_data,',',completionCode_data,',',form_data);
+  //console.log(data);
+
+  // Submit to server-side
+  google.script.run.withFailureHandler( handleFailure )
+      .withSuccessHandler( handleSuccess )
+      .processForm( data );
+}
+
+function handleSuccess() {
+    addOutroPage(-1,-1);
+}
+
+function storeFormOnAbortion()
+{
+  var data = '';
+  var form_data = JSON.stringify( $( "#myForm" ).serializeArray() );
+
+  completionCode = "Not_Completed";
+
+  var workerID_data = '{"name":"workerID","value":"' + workerID + '"}';
+  var completionCode_data = '{"name":"completionCode","value":"' + completionCode + '"}';
+  form_data = form_data.slice(1);
+
+  //put together, workerID, completionCode and answers of study  
+  data = data.concat('[',workerID_data,',',completionCode_data,',',form_data);
+
+  // Submit to server-side
+  google.script.run.withFailureHandler( handleFailure )
+      .withSuccessHandler( handleAbortion )
+      .processForm( data );
+}
+
+function handleAbortion()
+{
+   //var currPageID = parseInt($('#page-counter').val());
+   //addOutroPage(currPageID,errorCodes[1]);
+}
+
+function handleFailure(msg) {
+  $( "#myForm :input" ).prop("disabled", false);
+  $( '#error-msg' ).show();
+}
+
+// scroll to the top of the document
+function scroolToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+function shuffle(questions) {
+
+  //remove pages
+  var parent = questions[0].parentNode;
+  questions.forEach(function(element){
+    parent.removeChild(element);
+  })
+  
+  //shuffle pages and add them again
+  shuffleArray(questions);
+  questions.forEach(function(element){
+      parent.appendChild(element);
+      //console.log("element = " + element.id);
+  })
+}
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+
+function addBreakPage(pageID,questionID)
+{
+  //add break page after each question
+  var div1 = document.createElement("div");
+  div1.setAttribute("id", "breakPage" + pageID);
+  div1.classList.add("pages");
+
+  //add confident question
+  div1.appendChild(addConfidentQuestion(questionID));
+
+  //add text to break page
+  var div2 = document.createElement("div");
+  div2.classList.add("span");
+
+  if(questionsAnswered < (numberOfQuestions)){ //numberOfQuestions - 1
+     var p = document.createElement("p");
+     p.textContent = "Ready for the next question?"
+     div2.appendChild(p);
+     
+     var p1 = document.createElement("p");
+     p1.textContent = "Then press continue."
+     div2.appendChild(p1);
+  }else{
+
+    var p = document.createElement("p");
+    p.textContent = "This was the last question."
+    div2.appendChild(p);
+
+    var p3 = document.createElement("p");
+    p3.textContent = "One final remark..."
+    div2.appendChild(p3);
+
+    //add likert question
+    div2.appendChild(addLikertQuestion(1));
+
+     var p1 = document.createElement("p");
+     p1.textContent = "Press submit to finish the survey."
+     div2.appendChild(p1);
+  }
+  
+  div1.appendChild(div2);
+
+  //remove btn-bar at the end of the html to add it again at last
+  var container = document.getElementById("myForm");
+  var btnBar = document.getElementById("btnBar");
+  container.removeChild(btnBar);
+  container.appendChild(div1);
+  container.appendChild(btnBar);
+}
+
+function addConfidentQuestion(questionID)
+{
+  var fragment = document.createDocumentFragment();
+
+  //question container
+  var div1 = document.createElement("div");
+  div1.classList.add("item");
+  div1.classList.add("item_background");
+  
+  //question text
+  var p = document.createElement("p");
+  p.textContent = "How confident are you about your last answer?"
+  
+  //answer container
+  var div2 = document.createElement("div");
+  div2.setAttribute("id", "confident" + questionID.toString());
+  div2.setAttribute("name", "confident" + questionID.toString());
+  $(div2).addClass("radio-group");
+
+  //4 answer possibilities
+  var div3 = document.createElement("div");
+
+  for(i = 1; i <= 4; i = i + 1)
+  { 
+    var label = document.createElement("label");
+    $(label).addClass("radio-inline");
+    
+    if(i == 1){
+      label.textContent  = 'Very Unconfident  ';
+    }else if(i == 2){
+      label.textContent  = 'Unconfident  ';
+    }else if(i == 3){
+      label.textContent  = 'Confident  ';
+    }else if(i == 4){
+      label.textContent  = 'Very Confident  ';
+    }
+
+    var input = document.createElement("input");
+    input.setAttribute("type", "radio");
+    input.setAttribute("id", "a"+ i + "_c" + questionID);
+    input.setAttribute("name", "c" + questionID.toString());
+    input.value = (i - 1); //0-3
+    input.required = true;   
+
+    label.appendChild(input);
+    div3.appendChild(label);
+  }
+
+  div2.appendChild(div3);
+  
+  div1.appendChild(p);
+  div1.appendChild(div2);
+  fragment.appendChild(div1);
+
+  return fragment;
+}
+
+function addLikertQuestion(questionID)
+{
+  var fragment = document.createDocumentFragment();
+
+  //question container
+  var div1 = document.createElement("div");
+  div1.classList.add("item");
+  div1.classList.add("item_background");
+  
+  //question text
+  var p = document.createElement("p");
+  p.textContent = "How suitable do you find using AccuStripe to visualize distributions?"
+  
+  //answer container
+  var div2 = document.createElement("div");
+  div2.setAttribute("id", "likert" + questionID.toString());
+  div2.setAttribute("name", "likert" + questionID.toString());
+  $(div2).addClass("radio-group");
+
+  //4 answer possibilities
+  var div3 = document.createElement("div");
+
+  for(i = 1; i <= 4; i = i + 1)
+  { 
+    var label = document.createElement("label");
+    $(label).addClass("radio-inline");
+    
+    if(i == 1){
+      label.textContent  = 'Not suitable at all  ';
+    }else if(i == 2){
+      label.textContent  = 'Barely suitable  ';
+    }else if(i == 3){
+      label.textContent  = 'Reasonably suitable  ';
+    }else if(i == 4){
+      label.textContent  = 'There is no better way ';
+    }
+
+    var input = document.createElement("input");
+    input.setAttribute("type", "radio");
+    input.setAttribute("id", "a"+ i + "_l" + questionID);
+    input.setAttribute("name", "l" + questionID.toString());
+    input.value = (i - 1); //0-3
+    input.required = true;   
+
+    label.appendChild(input);
+    div3.appendChild(label);
+  }
+
+  div2.appendChild(div3);
+  
+  div1.appendChild(p);
+  div1.appendChild(div2);
+  fragment.appendChild(div1);
+
+  return fragment;
+}
+
+function addOutroPage(currentPageID, errorCode)
+{
+  var outroPage = document.getElementById('page' + INDEX_OutroPage);
+
+  var div1 = document.createElement("div");
+  div1.classList.add("item");
+  div1.classList.add("item_background");
+  div1.classList.add("outroText");
+
+  if(errorCode == errorCodes[0])
+  { // device/browser size error
+    var h3 = document.createElement("h3");
+    h3.textContent = "Unfortunately, you are not able to participate in this study.";   
+  
+    var p = document.createElement("p");
+    p.classList.add("errorMessage");
+    p.textContent = "Your device does not meet the technical requirements.";
+
+    var p1 = document.createElement("p");
+    p1.classList.add("errorMessage");
+    p1.textContent = "Your screen or window did not meet the dimension requirements for this study.";
+  
+    div1.appendChild(h3);
+    div1.appendChild(p);
+    div1.appendChild(p1);
+
+    $('#continue-button').hide();
+    $('#stop-button').hide();
+
+  }else if(errorCode == errorCodes[1])
+  {//study was ended by participant
+    var h3 = document.createElement("h3");
+    h3.textContent = "Unfortunately, you wanted to exit the study.";
+    
+    div1.appendChild(h3);
+
+    $('#continue-button').hide();
+    $('#stop-button').hide();
+  }
+  else
+  { // success
+  
+    //console.log("SUCCESS!");
+
+    var h3 = document.createElement("h3");
+    h3.textContent = "You have successfully completed the study!";   
+  
+    var p = document.createElement("p");
+    p.classList.add("successMessage");
+    p.textContent = "Thank you very much for your participation!";
+
+    var p1 = document.createElement("p");
+    p1.classList.add("successMessage");
+    p1.innerHTML = "Your Completion Code is: <b>" + completionCode + " </b>";
+
+    div1.appendChild(h3);
+    div1.appendChild(p);
+    div1.appendChild(p1);
+    
+     var btnBar = document.getElementById("btnBar");
+     var lastBreakOutPage = btnBar.previousSibling.id;
+     $("#" + lastBreakOutPage).hide();
+     $('#stop-button').hide();
+  }
+
+  outroPage.appendChild(div1);
+  outroPage.appendChild(addOutroText());
+
+  $('#page-info').hide();
+  $('#submit-button').hide();
+  $('#page' + currentPageID).hide();
+  $('#breakPage' + currentPageID).hide();
+  $('#page' + INDEX_OutroPage).show();
+
+}
+
+function addSizeErrorMessageFirstPage()
+{
+  var firstPage = document.getElementById('page' + INDEX_IntroPage);
+  var msg = "You need to enlarge your browser to full size! Otherwise you will not be able to participate in this study!";
+  var errorMessage = document.getElementById('size_error');
+ 
+  if(errorMessage == null)
+  {
+    //add error message
+    var div1 = document.createElement("div");
+    div1.setAttribute("id","size_error");
+    div1.classList.add("item");
+    div1.classList.add("item_background");
+    div1.classList.add("error");
+
+    var p = document.createElement("p");
+    p.textContent = msg;
+
+    div1.appendChild(p);
+    firstPage.appendChild(div1);
+
+  }else if(errorMessage.classList.contains("ok"))
+  {
+    errorMessage.classList.remove("ok");
+    errorMessage.classList.add("error");
+    var p = errorMessage.children[0];
+    p.textContent = msg;
+  }
+  
+  $('#page' + INDEX_IntroPage).show();
+}
+
+function removeSizeErrorMessageFirstPage()
+{ 
+  var errorMessage = document.getElementById('size_error');
+  if(errorMessage != null)
+  {
+    errorMessage.classList.remove("error");
+    errorMessage.classList.add("ok");
+    var p = errorMessage.children[0];
+    p.textContent = "Thank you for enlarging your browser. You can now proceed.";
+  }
+}
+
+function addSizeErrorMessage(pageElem)
+{ 
+  var errorMessage = pageElem.find('#size_error')[0];
+  var msg = "You need to enlarge your browser to full size! Otherwise you will not be able to participate in this study!";
+  
+  if(errorMessage === undefined)
+  { 
+    //add error message
+    var div1 = document.createElement("div");
+    div1.setAttribute("id","size_error");
+    div1.classList.add("item");
+    div1.classList.add("item_background");
+    div1.classList.add("error");
+
+    var p = document.createElement("p");
+    p.textContent = msg;
+
+    div1.appendChild(p);
+    pageElem.append(div1);
+
+  }else if(errorMessage.classList.contains("ok"))
+  {
+    errorMessage.classList.remove("ok");
+    errorMessage.classList.add("error");
+    var p = errorMessage.children[0];
+    p.textContent = msg;
+  }
+}
+
+function removeSizeErrorMessage(pageElem)
+{
+  var errorMessage = pageElem.find('#size_error')[0];
+
+  if(errorMessage != undefined)
+  {
+    errorMessage.classList.remove("error");
+    errorMessage.classList.add("ok");
+    var p = errorMessage.children[0];
+    p.textContent = "Thank you for enlarging your browser. You can now proceed.";
+  }
+}
+
+function addOutroText()
+{
+    var div1 = document.createElement("div");
+    div1.classList.add("item");
+    div1.classList.add("item_background");
+    div1.classList.add("outroText");
+
+    var p = document.createElement("p");
+    p.textContent = "Answered Questions: " + questionsAnswered + "/11 ";
+
+    var p1 = document.createElement("p");
+    p1.textContent = "Thank you."
+
+    var p2 = document.createElement("p");
+    p2.classList.add("successMessage");
+    p2.textContent = "(You may want make a screenshot or copy that information somewhere)";
+
+    var p3 = document.createElement("p");
+    p3.classList.add("successMessage");
+    p3.textContent = "You can now close this website. Have a nice day."
+
+    div1.appendChild(p);
+    div1.appendChild(p1);
+    div1.appendChild(p2);
+    div1.appendChild(p3);
+    return div1;
+}
+
+</script>

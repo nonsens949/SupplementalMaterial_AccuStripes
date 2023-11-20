@@ -1,0 +1,92 @@
+<!-- This is the start point of the validation study. -->
+<!-- It contains the information about the technical requirements. -->
+
+<!DOCTYPE html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<?!= include('FormUI_CSS'); ?>
+
+<html>
+
+<div id='mainContainer' class='container'> 
+<div class='main'>
+<div id='main-panel' class='form-panel paper-shadow-top-z-3'>
+<form id='mainForm' name='mainForm'>
+    <div id='page-1' class='pages'>
+      <h1>Welcome  to the Evaluation of AccuStripes</h1>
+      <div class='item'>
+
+        <!------------ Techniqual Requirements & Instructions ------------>
+        <div class="span">
+          <h2>Techniqual Requirements & Instructions</h2>
+          <p class="help-block"> If you want participate in this study, you will have to use the following tools/devices: <br> </p>
+          <div class='item item_background'>
+            <p class="help-block"> <b>The monitor/device must have a resolution of at least 1920x1080 or higher.</b><p/>
+            <p> Please execute this study on a commerically available monitor, preferably with a resolution of 1920x1080 pixel or higher.</p>
+            <p class="help-block"> <b>The system will not allow you to do this study more than once on your machine.</b><p/>
+            <p> Before you can start with the study these requirements are tested automatically.</p>
+            <p class="help-block"> <b>Use a tested browser: Firefox, Chrome, Edge, Opera, or Safari.</b><p/>
+            <p> Using a browser other than those listed may cause technical problems and you may not be able to complete the study. For example, the study is not executable with Internet Explorer!</p>
+          </div>
+          <p> If you want to participate in this study, you will have to follow these instructions: <br> </p>
+          <div class='item item_background'>
+            <p class="help-block"> <b>You must have your browser window in full screen.</b></p>
+            <p class="help-block"> <b>You are not allowed to reduce the size of the browser window during the study.</b> </p>
+            <p class="help-block"> <b>You must not click the back-button, forward-button, or the refresh button of the browser.</b>  You are only allowed to click on the buttons mentioned in the next instructions.</p>
+            <p class="help-block"> All these instructions are regularly tested during the study.</p>
+          </div>
+          <p class="help-block outroText"><b>Violating any of the instructions will result in immediate termination of the study and no payment will be made.</b></p>
+        </div>
+
+        <div class="span">
+          <p> All collected data (your responses to this questionnaire) will be fully anonymous.</p>
+          <p> You can cancel the study at any time. In that case, we will not use your data and no payment will be made.</p>
+        </div>
+        <div class="span">
+          <p>Additional Notes:</p>
+          <div class="span help-block item item_background">
+            <p class="help-block"> <b>Don't be frustrated if you don't recognize the answer - this is no test of your competence.</b></p>
+            <p class="help-block"> In this study, different forms of representations are investigated. For this reason, it is not always obvious which answer is the correct one. If you are unsure, this is just a sign that the representation format is not ideal.</p>
+            <p class="help-block"> <b>This study requires you to assess colors.</b></p>
+            <p class="help-block"> A color-blind friendly color map is used, but please use a device/monitor, which is capable of displaying colors.</p>
+          </div>
+        </div>
+
+        <div id="mainSpaceWorkerID" class="span">
+          <p> If your device fullfils the requirements and you agree with the stated instructions, please provide your Worker ID and click on the button "Start". Then you will be given the next instructions.
+          </p>
+          <p class="help-block"> Your Worker ID: </p>
+          <input type="text" id="workerID" name="workerID" value="" required>
+        </div>
+      </div>    
+    </div>
+
+<div id="endPage" class="hidden">
+  <div class="item item_background outroText">
+    <h3>Unfortunately, you will no longer be able to participate in this study.</h3>
+    <p class="help-block errorMessage">You did not follow the instructions to not press the back-button, forward-button or the refresh button.
+    </p>
+    <p class="help-block">No payment will be made.</p>
+    <p class="help-block">You can now close this website. Have a nice day.</p>
+  </div>
+</div>
+
+    <!-- Buttons for Control -->
+<div id='btnBarStart' class='btn-bar'>
+  <p class='item'>
+  <button id="startButton" type="button" >Start</button>
+  </p>
+</div>
+
+</form>
+</div>
+</div>
+</div>
+
+<div id="questions" class="container hidden">  </div>
+
+<?!= include('Logic'); ?>
+<?!= include('StartLogic'); ?>
+
+ </html>

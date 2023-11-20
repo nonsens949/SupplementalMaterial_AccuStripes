@@ -1,0 +1,142 @@
+<!-- This is script contains the security methods checked before the start of the study. -->
+<!-- It checks if the participant did not already take part in the study with cookies. -->
+
+<script>
+
+var completionCode;
+var workerID;
+
+$(document).ready(function() {
+  
+  //prevent form to accept enter in text form
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+
+  // this scripts initiates the loading of 1 of 3 different compositing studies
+  $(document).on('click', '#startButton', startEval);
+
+});
+
+function startEval(){
+     
+    //validate if workerID was set
+    var unanswered = false;
+    unanswered = validate("mainSpaceWorkerID", "mainForm");
+    if(unanswered) return;
+    
+    //set beginning page hidden
+    $('#mainContainer').hide();
+    $('#startButton').hide();
+
+    //load question html
+    google.script.run.withFailureHandler(startEval).withSuccessHandler(selectComposition).createQuestionHTML();
+
+    // make questions visible
+    $('#questions').show();
+
+    //submit workerID
+    workerID = $("#workerID").val();
+    google.script.run.withFailureHandler(resetWorkerID).addWorkerID(workerID);
+
+    //generate completionCode
+    google.script.run.withSuccessHandler(setCompletionCode).withFailureHandler(retryGenerateCompletionCode).generateCompletionCode();
+}
+
+function selectComposition(htmlPage){ 
+
+      const parser = new DOMParser();
+      var doc = parser.parseFromString(htmlPage, "text/html");
+      var child = doc.getElementsByClassName('questionsContainer')[0];
+      var div = document.getElementById("questions");
+      div.appendChild(child);
+}
+
+function resetWorkerID()
+{
+  google.script.run.withFailureHandler(resetWorkerID).addWorkerID(workerID);
+}
+
+function retryGenerateCompletionCode()
+{
+  google.script.run.withSuccessHandler(setCompletionCode).withFailureHandler(retryGenerateCompletionCode).generateCompletionCode();
+}
+
+function setCompletionCode(completionCodeServer)
+{
+  completionCode = completionCodeServer;
+  return completionCode;
+}
+
+function getCompletionCode()
+{
+  return completionCode;
+}
+
+/****        SECURITY METHODS       ****/ 
+
+//called when main.html is finished loading
+window.addEventListener('load', (event) => {
+  checkCookie();
+});
+
+function setCookie(cname,cvalue,exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      
+      let co = c.substring(name.length, c.length);
+      return co;
+    }
+  }
+  return "";
+}
+
+function checkCookie() {
+  let cookieID = "accustripes_evaluation";
+  let cookie = getCookie(cookieID);
+  if (cookie != "") {
+    //user already known --> end the study
+    $('#startButton').hide();
+    $('#page-1').hide();
+
+    var h3 = document.createElement("h3");
+    h3.textContent = "You have already completed the study.";
+
+    var p = document.createElement("p");
+    p.textContent = "It is not possible to do the study more than once.";
+
+     var div1 = document.createElement("div");
+    div1.classList.add("item");
+    div1.classList.add("item_background");
+    div1.classList.add("outroText");
+    div1.appendChild(h3);
+    div1.appendChild(p);
+
+    var mainForm = document.getElementById("mainForm");
+    mainForm.appendChild(div1);
+
+  } else {
+    //user new
+    const d = new Date();
+    setCookie(cookieID, d, 365);
+  }
+}
+/****        SECURITY METHODS  END     ****/ 
+</script>
